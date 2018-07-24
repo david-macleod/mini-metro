@@ -1,2 +1,2 @@
 # mini-metro
-Playing Mini Metro game through reinforcement learning using the SerpentAI framework
+Reinforcement learning agent for Mini Metro game using the SerpentAI framework
