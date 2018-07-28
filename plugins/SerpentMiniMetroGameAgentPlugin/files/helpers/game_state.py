@@ -1,6 +1,4 @@
 
-
-
 class GameState(object):
 
     def __init__(self):
@@ -15,12 +13,12 @@ class Inventory(object):
         self.tunnels = tunnels
         self.stations = stations
 
+
 class Line(object):
 
     def __init__(self, colour):
         self.colour = colour
         self.deployed = False
-        self
 
     def deploy(self):
         self.deployed = True
@@ -38,11 +36,6 @@ class Station(object):
     def connect_stations(self):
         pass
 
+
 class StationGraph(object):
     pass
-
-
-
-
-    
-

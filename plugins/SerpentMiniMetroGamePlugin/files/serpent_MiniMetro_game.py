@@ -1,24 +1,18 @@
 from serpent.game import Game
-
-from .api.api import MiniMetroAPI
-
 from serpent.utilities import Singleton
 
-
+from .api.api import MiniMetroAPI
 
 
 class SerpentMiniMetroGame(Game, metaclass=Singleton):
 
     def __init__(self, **kwargs):
-        kwargs["platform"] = "steam"
-
-        kwargs["window_name"] = "Mini Metro"
-
-        kwargs["app_id"] = "287980"
-        kwargs["app_args"] = None
-        
-        
-        
+        kwargs.update({
+            "platform": "steam",
+            "window_name": "Mini Metro",
+            "app_id": "287980",
+            "app_args": None,
+        })
 
         super().__init__(**kwargs)
 

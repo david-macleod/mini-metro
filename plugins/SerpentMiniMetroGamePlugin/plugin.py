@@ -8,11 +8,11 @@ class SerpentMiniMetroGamePlugin(offshoot.Plugin):
     libraries = []
 
     files = [
-        {"path": "serpent_MiniMetro_game.py", "pluggable": "Game"}
+        {"path": "serpent_MiniMetro_game.py", "pluggable": "Game"},
     ]
 
     config = {
-        "fps": 2
+        "fps": 2,
     }
 
     @classmethod

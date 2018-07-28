@@ -10,11 +10,11 @@ class SerpentMiniMetroGameAgentPlugin(offshoot.Plugin):
     libraries = []
 
     files = [
-        {"path": "serpent_MiniMetro_game_agent.py", "pluggable": "GameAgent"}
+        {"path": "serpent_MiniMetro_game_agent.py", "pluggable": "GameAgent"},
     ]
 
     config = {
-        "frame_handler": "PLAY"
+        "frame_handler": "PLAY",
     }
 
     @classmethod

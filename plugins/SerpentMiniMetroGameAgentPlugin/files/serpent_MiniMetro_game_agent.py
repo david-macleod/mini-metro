@@ -7,7 +7,6 @@ class SerpentMiniMetroGameAgent(GameAgent):
         super().__init__(**kwargs)
 
         self.frame_handlers["PLAY"] = self.handle_play
-
         self.frame_handler_setups["PLAY"] = self.setup_play
 
     def setup_play(self):
