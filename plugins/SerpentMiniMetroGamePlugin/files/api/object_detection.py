@@ -12,37 +12,36 @@ class ObjectDetector(object):
 
         self.graph = self._load_model(frozen_graph_path)
         self.class_labels  = self._load_class_labels(class_labels_path) 
+        # Creating shared session to get performance benefits of cached graph
+        self.session = tf.Session(graph=self.graph)
 
 
-    def run_detection(self, image):
+    def run_inference(self, image):
 
         assert image.ndim == 3 and image.shape[2] == 3, 'Input array must have shape [n,n,3]'
+  
+        # Get handles to input and output tensors
+        ops = self.graph.get_operations()
+        all_tensor_names = {output.name for op in ops for output in op.outputs}
+        tensor_dict = {}
+        for key in ['detection_boxes', 'detection_scores', 'detection_classes']:
+            tensor_name = key + ':0'
+            if tensor_name in all_tensor_names:
+                tensor_dict[key] = self.graph.get_tensor_by_name(tensor_name)
+                
+        image_tensor = self.graph.get_tensor_by_name('image_tensor:0')
 
-        with self.graph.as_default():
-            # TODO initialize session object outside and pass function as this is the time bottleneck
-            with tf.Session() as sess:
-                # Get handles to input and output tensors
-                ops = tf.get_default_graph().get_operations()
-                all_tensor_names = {output.name for op in ops for output in op.outputs}
-                tensor_dict = {}
-                for key in ['detection_boxes', 'detection_scores', 'detection_classes']:
-                    tensor_name = key + ':0'
-                    if tensor_name in all_tensor_names:
-                        tensor_dict[key] = tf.get_default_graph().get_tensor_by_name(tensor_name)
-                        
-                image_tensor = tf.get_default_graph().get_tensor_by_name('image_tensor:0')
+        # Create feed dict in format required by graph
+        feed_dict={image_tensor: np.expand_dims(image, 0)}
+        # Run inference
+        output_dict = self.session.run(tensor_dict, feed_dict=feed_dict)
 
-                # Create feed dict in format required by graph
-                feed_dict={image_tensor: np.expand_dims(image, 0)}
-                # Run inference
-                output_dict = sess.run(tensor_dict, feed_dict=feed_dict)
+        # All outputs are float32 numpy arrays, so convert types as appropriate
+        output_dict['boxes'] = output_dict.pop('detection_boxes')[0]
+        output_dict['scores'] = output_dict.pop('detection_scores')[0]
+        output_dict['class_ids'] = output_dict.pop('detection_classes')[0].astype(np.uint8)
 
-                # All outputs are float32 numpy arrays, so convert types as appropriate
-                output_dict['boxes'] = output_dict.pop('detection_boxes')[0]
-                output_dict['scores'] = output_dict.pop('detection_scores')[0]
-                output_dict['class_ids'] = output_dict.pop('detection_classes')[0].astype(np.uint8)
-
-                return output_dict
+        return output_dict
 
 
     def _load_class_labels(self, labels_path):
@@ -68,7 +67,7 @@ class ObjectDetector(object):
                 return detection_graph
 
 
-    def draw_bounding_boxes(self, image_array, boxes, scores, class_ids, threshold=0.5, **draw_kwargs):
+    def draw_bounding_boxes(self, image_array, boxes, scores, class_ids, threshold=0.2, **draw_kwargs):
     
         assert boxes.ndim == 2 and boxes.shape[1] == 4, 'Bounding boxes must have shape [n,4]'
 
