@@ -8,5 +8,7 @@ file_paths:
     config: config/config.plugins.yml
     libraries: requirements.plugins.txt
     plugins: plugins
+    game_ml_models: plugins/SerpentMiniMetroGamePlugin/files/ml_models
+    game_agent_ml_models: plugins/SerpentMiniMetroGameAgentPlugin/files/ml_models
 modules: ["serpent.game", "serpent.game_agent"]
 sandbox_configuration_keys: true
