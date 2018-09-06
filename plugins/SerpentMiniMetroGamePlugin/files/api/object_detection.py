@@ -9,7 +9,10 @@ from enum import Enum
 class ObjectDetector(object):
 
     def __init__(self, frozen_graph_path, class_labels_path):
-
+        """
+        :param frozen_graph_path: string location of serialized frozen model
+        :class_labels_path: string location of class labels json
+        """
         self.graph = self._load_model(frozen_graph_path)
         self.class_labels  = self._load_class_labels(class_labels_path) 
         # Creating shared session to get performance benefits of cached graph
@@ -17,8 +20,14 @@ class ObjectDetector(object):
 
 
     def run_inference(self, image):
+        """
+        Run object detection inference on a a single imgage
 
-        assert image.ndim == 3 and image.shape[2] == 3, 'Input array must have shape [n,n,3]'
+        :param image: numpy array with shape [?,?,3]
+        :returns: dict containing lists of bounding box co-ordinates (ymin, xmin, ymax, xmax),
+        scores (class probabilities) and class ids (integers)
+        """
+        assert image.ndim == 3 and image.shape[2] == 3, 'Input array must have shape [?,?,3]'
   
         # Get handles to input and output tensors
         ops = self.graph.get_operations()
@@ -45,7 +54,11 @@ class ObjectDetector(object):
 
 
     def _load_class_labels(self, labels_path):
+        """
+        Load class labels from json ("class_label": class_id) and convert to Enum mapping
 
+        :returns: Enum object with containing label/id mappings for two-way lookup
+        """
         with open(labels_path, 'rb') as json_file:
             labels_dict = json.load(json_file)
 
@@ -53,7 +66,11 @@ class ObjectDetector(object):
 
 
     def _load_model(self, frozen_graph_path):
+        """
+        Load serialized frozen graph model
 
+        :returns: Tensorflow Graph
+        """
         detection_graph = tf.Graph()
         with detection_graph.as_default():
             # Create GraphDef object to parse serialized frozen graph
@@ -68,11 +85,20 @@ class ObjectDetector(object):
 
 
     def draw_bounding_boxes(self, image_array, boxes, scores, class_ids, threshold=0.2, **draw_kwargs):
-    
+        """
+        Draw all bounding boxes for a single image
+
+        :param image_array: numpy array with shape [?,?,3]
+        :param boxes: list of list of (ymin, xmin, ymax, xmax) box co-ordinates
+        :param scores: list of class probabilities for boxes
+        :param class_ids: list of class ids for boxes
+        :returns: numpy array with all boxes annootated
+        """
         assert boxes.ndim == 2 and boxes.shape[1] == 4, 'Bounding boxes must have shape [n,4]'
 
         for box, score, class_id in zip(boxes, scores, class_ids):
             if score >= threshold:
+                #TODO add class labels to box
                 class_label = self.class_labels(class_id).name
                 label = '{}: {:.2f}'.format(threshold, score)
                 coord_kwargs = dict(zip(['ymin', 'xmin', 'ymax', 'xmax'], box))
@@ -88,14 +114,14 @@ def draw_bounding_box(image_array, ymin, xmin, ymax, xmax, thickness=4, color='l
     """
     Draw a single bounding box on an image array
 
-    :param image_array: numpy array with shape [n,n,3]
+    :param image_array: numpy array with shape [?,?,3]
     :param ymin, xmin, ymax, xmax: coordinates of bounding box limits
     :param thickness: number of pixels to used for box border width
     :param color: string specificying box colour
     :param normalized_coordas: boolean flags if coordinates are normalized (default) or absolute pixel values
     :returns: numpy array with shape [n,n,3]
     """
-    assert image_array.ndim == 3 and image_array.shape[2] == 3, 'Image must have shape [n,n,3]'
+    assert image_array.ndim == 3 and image_array.shape[2] == 3, 'Image must have shape [?,?,3]'
 
     image_pil = Image.fromarray(image_array)
     draw = ImageDraw.Draw(image_pil)
