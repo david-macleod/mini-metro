@@ -44,6 +44,10 @@ m2 with depth multiplier set to 0.75 to check if mobilenet layers are affected
 
 # m5
 m2 with training data also used for evaluation
+the api restricts us to evaluating both train/test when in eval only mode 
+
+# m6
+m2 config, but with paths set for training on google cloud colab notebook
 
 
 
