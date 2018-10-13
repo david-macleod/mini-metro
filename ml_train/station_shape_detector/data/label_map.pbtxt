@@ -1,0 +1,49 @@
+item {
+    id: 1
+    name: 'circle'
+}
+
+item {
+    id: 2
+    name: 'triangle'
+}
+
+item {
+    id: 3
+    name: 'square'
+}
+
+#item {
+#    id: 4
+#    name: 'star'
+#}
+
+#item {
+#    id: 5
+#    name: 'pentagon'
+#}
+
+#item {
+#    id: 6
+#    name: 'rhombus'
+#}
+
+#item {
+#    id: 7
+#    name: 'cross'
+#}
+
+#item {
+#    id: 8
+#    name: 'drop'
+#}
+
+#item {
+#    id: 9
+#    name: 'jewel'
+#}
+
+#item {
+#    id: 10
+#    name: 'rugby'
+#}

@@ -1,6 +1,5 @@
 # Project specific
 datasets/collect_frames/
-ml_train/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

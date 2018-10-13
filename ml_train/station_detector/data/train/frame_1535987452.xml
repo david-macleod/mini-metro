@@ -1,0 +1,50 @@
+<annotation>
+	<folder>New folder</folder>
+	<filename>frame_1535987452.8238132.png</filename>
+	<path>C:\Users\macle\Dropbox\mcode\SerpentAI\ml_train\station_detector\data\New folder\frame_1535987452.8238132.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>800</width>
+		<height>600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>square</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>348</xmin>
+			<ymin>138</ymin>
+			<xmax>405</xmax>
+			<ymax>192</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>triangle</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>246</xmin>
+			<ymin>369</ymin>
+			<xmax>316</xmax>
+			<ymax>428</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>circle</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>531</xmin>
+			<ymin>419</ymin>
+			<xmax>592</xmax>
+			<ymax>475</ymax>
+		</bndbox>
+	</object>
+</annotation>
