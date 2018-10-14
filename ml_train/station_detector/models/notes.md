@@ -49,6 +49,9 @@ the api restricts us to evaluating both train/test when in eval only mode
 # m6
 m2 config, but with paths set for training on google cloud colab notebook
 
+# m6-1
+m3 config, but with paths set for training on google cloud colab notebook
+
 
 
 
