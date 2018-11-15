@@ -52,6 +52,9 @@ m2 config, but with paths set for training on google cloud colab notebook
 # m6-1
 m3 config, but with paths set for training on google cloud colab notebook
 
+# m6-2
+m6-1 with a higher learning rate (0.4 instead of 0.18 tapered)
+
 
 
 
