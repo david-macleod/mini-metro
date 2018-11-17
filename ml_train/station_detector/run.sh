@@ -2,9 +2,6 @@ MODEL=$1
 CONFIG=$2
 PIPELINE_CONFIG_PATH="models/${MODEL}/${CONFIG}"
 
-
-print(PIPELINE_CONFIG_PATH)
-
 for i in {1...5}
 do
   MODEL_DIR="/home/ubuntu/tf_data/station_detector/${MODEL}/train${i}"
