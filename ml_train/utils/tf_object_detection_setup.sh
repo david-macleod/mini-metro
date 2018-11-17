@@ -1,13 +1,13 @@
 pretrained_model=ssd_mobilenet_v1_coco_2018_01_28
 
-conda activate tensorflow
+source activate tensorflow
 
 # install dependencies
 sudo apt-get install protobuf-compiler python-pil python-lxml python-tk
 pip install Cython
 pip install jupyter
 pip install matplotlib
-pip install jpeg
+conda install jpeg
 
 git clone https://github.com/david-macleod/mini-metro
 
