@@ -11,8 +11,8 @@ pip install jpeg
 
 git clone https://github.com/david-macleod/mini-metro
 
-# clone object detection repo
-git clone https://github.com/tensorflow/models.git
+# clone object detection repo (with python 3 fixes)
+git clone -b dev https://github.com/david-macleod/models.git
 
 # clone cocoapi and run make
 git clone https://github.com/cocodataset/cocoapi.git
@@ -44,4 +44,4 @@ cp ${pretrained_model}/model.ckpt.* model_zoo/${pretrained_model}/
 rm -rf ${pretrained_model}*
 
 # create train output directory
-mkdir ml_train
+mkdir tf_data
