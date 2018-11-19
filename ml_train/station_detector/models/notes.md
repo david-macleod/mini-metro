@@ -29,12 +29,21 @@ mAP peaked at ~0.10 after 70 steps but did not appear to give any noticeable upl
 m2 with random horizontal flip activated
 mAP ~0.2 after 80 steps
 
+# m2-3
+m2 but with https://github.com/fo40225/tensorflow-windows-wheel installation of tensorflow to remove AVX and improve performance
+AVX warning is removed but performance is still the same (14 steps / 10 mins)
+
+# m2-4
+m2 but with grayscale transformation on input
+mAP ~0.15 after 80 steps
+
 
 # m3
 ssd_mobilenet_v1_fpn with default parameters
 this has a higher input resolution (640x640) and uses feature pyramic network
 the fpn should improve performance on small objects
 training is very slow, cannot use batch greater than 20 due to memory (20 is same as previous attempts anyway)
+evaluation on training data
 trains around 2 steps per 20 mins compared to ~13 for non-fpn version
 after 100 steps the mAP is up and down
 test loss does not decrease consistently and no predicted boxes
@@ -44,17 +53,20 @@ m2 with depth multiplier set to 0.75 to check if mobilenet layers are affected
 
 # m5
 m2 with training data also used for evaluation
-the api restricts us to evaluating both train/test when in eval only mode 
 
-# m6
-m2 config, but with paths set for training on google cloud colab notebook
+# m6 
+m2 training on google cloud collabatory
 
 # m6-1
-m3 config, but with paths set for training on google cloud colab notebook
+m3 training on google cloud collabatory
+achieves map ~0.80 about 3000 steps
+
+# m6-1-1
+m6 with local paths and eval on test data
 
 # m6-2
-m6-1 with a higher learning rate (0.4 instead of 0.18 tapered)
-
-
+m3 training on google cloud collabatory with higher learning rate
+m3 training on google cloud collabatory
+achieves map ~0.5 about 3000 steps
 
 
