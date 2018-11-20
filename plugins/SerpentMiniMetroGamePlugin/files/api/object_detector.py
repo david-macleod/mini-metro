@@ -1,8 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import PIL.Image as Image
-import PIL.ImageColor as ImageColor
-import PIL.ImageDraw as ImageDraw
+from PIL import Image, ImageColor, ImageDraw, ImageFont
 import json
 from skimage.color import rgb2gray 
 from enum import Enum
@@ -104,7 +102,7 @@ class ObjectDetector(object):
                 label = f'{score:.0%}'
                 coord_kwargs = dict(zip(['ymin', 'xmin', 'ymax', 'xmax'], box))
          
-                image_array = draw_bounding_box(image_array=image_array, label=label
+                image_array = draw_bounding_box(image_array=image_array, label=label,
                                                 **coord_kwargs, **draw_kwargs)
             else:
                 continue
@@ -143,15 +141,17 @@ def draw_bounding_box(image_array, ymin, xmin, ymax, xmax, label='',
     draw.line(line_coords, width=thickness, fill=color)
 
     # Add text with border
-    font = ImageFont.truetype('arial.ttf', 16)
+    size = 14
+    font = ImageFont.truetype('arialbd.ttf', size)
     textcolor = "white"
     bordercolor = "black"
+    text_x, text_y = xmin, ymin - size
 
-    draw.text((x-1, y-1), label, font=font, fill=bordercolor)
-    draw.text((x+1, y-1), label, font=font, fill=bordercolor)
-    draw.text((x-1, y+1), label, font=font, fill=bordercolor)
-    draw.text((x+1, y+1), label, font=font, fill=bordercolor)
-    draw.text((x, y), label, font=font, fill=textcolor)
+    draw.text((text_x-1, text_y-1), label, font=font, fill=bordercolor)
+    draw.text((text_x+1, text_y-1), label, font=font, fill=bordercolor)
+    draw.text((text_x-1, text_y+1), label, font=font, fill=bordercolor)
+    draw.text((text_x+1, text_y+1), label, font=font, fill=bordercolor)
+    draw.text((text_x, text_y), label, font=font, fill=textcolor)
 
     return np.array(image_pil)
 
