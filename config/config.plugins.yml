@@ -1,4 +1,4 @@
 SerpentMiniMetroGameAgentPlugin:
   frame_handler: PLAY
 SerpentMiniMetroGamePlugin:
-  fps: 1
+  fps: 0.5
