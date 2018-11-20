@@ -4,6 +4,7 @@ import PIL.Image as Image
 import PIL.ImageColor as ImageColor
 import PIL.ImageDraw as ImageDraw
 import json
+from skimage.color import rgb2gray 
 from enum import Enum
 
 class ObjectDetector(object):
@@ -110,12 +111,14 @@ class ObjectDetector(object):
         return image_array
    
 
-def draw_bounding_box(image_array, ymin, xmin, ymax, xmax, thickness=4, color='lime', normalized_coords=True):
+def draw_bounding_box(image_array, ymin, xmin, ymax, xmax, label='',
+                      thickness=4, color='lime', normalized_coords=True):
     """
     Draw a single bounding box on an image array
 
     :param image_array: numpy array with shape [?,?,3]
     :param ymin, xmin, ymax, xmax: coordinates of bounding box limits
+    :param label: bounding box text
     :param thickness: number of pixels to used for box border width
     :param color: string specificying box colour
     :param normalized_coordas: boolean flags if coordinates are normalized (default) or absolute pixel values
@@ -138,4 +141,25 @@ def draw_bounding_box(image_array, ymin, xmin, ymax, xmax, thickness=4, color='l
     
     draw.line(line_coords, width=thickness, fill=color)
 
+    # Add text with border
+    font = ImageFont.truetype('arial.ttf', 16)
+    textcolor = "white"
+    bordercolor = "black"
+
+    draw.text((x-1, y-1), label, font=font, fill=bordercolor)
+    draw.text((x+1, y-1), label, font=font, fill=bordercolor)
+    draw.text((x-1, y+1), label, font=font, fill=bordercolor)
+    draw.text((x+1, y+1), label, font=font, fill=bordercolor)
+    draw.text((x, y), label, font=font, fill=textcolor)
+
     return np.array(image_pil)
+
+
+def rgb2gray3d(image_array):
+    ''' Convert RGB to grayscale whilst preserving 3 channels '''
+    # Convert to grayscale 2d
+    image_array_gray_2d = rgb2gray(image_array)
+    # Add 3rd dimension and repeat along new axis 
+    image_array_gray_3d = np.repeat(image_array_gray_2d[..., None], 3, axis=2)
+
+    return image_array_gray_3d
