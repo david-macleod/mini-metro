@@ -44,8 +44,9 @@ class ObjectDetector(object):
         # Run inference
         output_dict = self.session.run(tensor_dict, feed_dict=feed_dict)
 
-        # All outputs are float32 numpy arrays, so convert types as appropriate
-        output_dict['boxes'] = output_dict.pop('detection_boxes')[0]
+        # Returning boxes as dicts to avoid ambiguous list of coords
+        raw_boxes = output_dict.pop('detection_boxes')[0]
+        output_dict['boxes'] = self.map_boxes(raw_boxes)
         output_dict['scores'] = output_dict.pop('detection_scores')[0]
         output_dict['class_ids'] = output_dict.pop('detection_classes')[0].astype(np.uint8)
 
@@ -93,21 +94,24 @@ class ObjectDetector(object):
         :param class_ids: list of class ids for boxes
         :returns: numpy array with all boxes annootated
         """
-        assert boxes.ndim == 2 and boxes.shape[1] == 4, 'Bounding boxes must have shape [n,4]'
 
         for box, score, class_id in zip(boxes, scores, class_ids):
             if score >= threshold:
                 #TODO add class labels to box
                 class_label = self.class_labels(class_id).name
                 label = f'{score:.0%}'
-                coord_kwargs = dict(zip(['ymin', 'xmin', 'ymax', 'xmax'], box))
          
                 image_array = draw_bounding_box(image_array=image_array, label=label,
-                                                **coord_kwargs, **draw_kwargs)
+                                                **box, **draw_kwargs)
             else:
                 continue
 
         return image_array
+
+    @staticmethod
+    def map_boxes(boxes):
+        ''' Convert list of box coords in TF format to dict '''
+        return [dict(zip(['ymin', 'xmin', 'ymax', 'xmax'], box)) for box in boxes]
    
 
 def draw_bounding_box(image_array, ymin, xmin, ymax, xmax, label='',
