@@ -101,10 +101,11 @@ class ObjectDetector(object):
             if score >= threshold:
                 #TODO add class labels to box
                 class_label = self.class_labels(class_id).name
-                label = '{}: {:.2f}'.format(threshold, score)
+                label = f'{score:.0%}'
                 coord_kwargs = dict(zip(['ymin', 'xmin', 'ymax', 'xmax'], box))
          
-                image_array = draw_bounding_box(image_array=image_array, **coord_kwargs, **draw_kwargs)
+                image_array = draw_bounding_box(image_array=image_array, label=label
+                                                **coord_kwargs, **draw_kwargs)
             else:
                 continue
 
