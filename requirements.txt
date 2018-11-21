@@ -32,7 +32,7 @@ mss==3.2.1
 nbconvert==5.3.1
 nbformat==4.4.0
 networkx==2.1
-notebook==5.6.0
+notebook>=5.7.2
 numpy==1.15.0
 offshoot==0.1.6
 opencv-python==3.4.2.17
