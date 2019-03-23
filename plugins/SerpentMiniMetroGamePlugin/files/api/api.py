@@ -13,8 +13,9 @@ class MiniMetroAPI(GameAPI):
             frozen_graph_path=f"{self.ml_models_dir}/station_detector_m6-1_frozen_graph.pb",
             class_labels_path=f"{self.ml_models_dir}/station_detector_label_map.json"
         )
+        self.ml_context_classifier = None
 
-    def my_api_function(self):
+    def parse_game_state(self, frame):
         pass
 
     class MyAPINamespace:
