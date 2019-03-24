@@ -12,7 +12,7 @@ class SerpentMiniMetroGamePlugin(offshoot.Plugin):
     ]
 
     config = {
-        "fps": 2,
+        "fps": 1,
     }
 
     @classmethod
