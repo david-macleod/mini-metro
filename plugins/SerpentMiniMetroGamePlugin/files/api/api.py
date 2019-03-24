@@ -13,11 +13,12 @@ class MiniMetroAPI(GameAPI):
         super().__init__(game=game)
         self.ml_models_dir = Path(offshoot.config['file_paths']['game_ml_models'])
 
-        self.ml_station_detector = object_detector(
+        """ self.ml_station_detector = object_detector(
             model_path=self.ml_models_dir/'station_detector_tf_m6-1_frozen_graph.pb',
             model_type='tensorflow',
             category_labels_path=self.ml_models_dir/'station_detector_label_map.json'
-        )
+        ) """
+        self.ml_station_detector = None
         self.ml_context_classifier = image_classifier(
             model_path=self.ml_models_dir/'context_classifier_fa_m0_learner.pkl',
             model_type='fastai'
@@ -25,9 +26,3 @@ class MiniMetroAPI(GameAPI):
 
     def parse_game_state(self, frame):
         pass
-
-    class MyAPINamespace:
-
-        @classmethod
-        def my_namespaced_api_function(cls):
-            api = MiniMetroAPI.instance

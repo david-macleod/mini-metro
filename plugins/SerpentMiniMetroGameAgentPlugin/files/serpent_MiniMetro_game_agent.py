@@ -1,4 +1,4 @@
-from serpent.game_agent import GameAgent
+from serpent.game_agent import GameAgent 
 
 
 class SerpentMiniMetroGameAgent(GameAgent):
@@ -9,19 +9,19 @@ class SerpentMiniMetroGameAgent(GameAgent):
         self.frame_handlers["PLAY"] = self.handle_play
         self.frame_handler_setups["PLAY"] = self.setup_play
 
-    def setup_play(self):
-
         self.ml_station_detector = self.game.api.ml_station_detector
         self.ml_context_classifier = self.game.api.ml_context_classifier
 
-        # Should these setup actions be moved to Game api?
-        # CLICK "Play"
-        self.input_controller.move(x=270, y=210)
-        self.input_controller.click()
-        # CLICK "Play"
-        self.input_controller.move(x=700, y=510)
-        self.input_controller.click()
+        self.ctrl = self.input_controller
 
+    def setup_play(self):
+
+        # Start Game
+        (self.game.context.click_play(self.ctrl)
+                          .click_mode(self.ctrl)
+                          .click_normal(self.ctrl)
+                          .click_return(self.ctrl)
+                          .click_play(self.ctrl))
 
 
     def handle_play(self, game_frame):

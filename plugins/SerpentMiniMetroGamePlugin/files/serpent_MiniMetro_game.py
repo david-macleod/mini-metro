@@ -2,6 +2,7 @@ from serpent.game import Game
 from serpent.utilities import Singleton
 
 from .api.api import MiniMetroAPI
+from .api.context import MainMenu
 
 
 class SerpentMiniMetroGame(Game, metaclass=Singleton):
@@ -18,6 +19,7 @@ class SerpentMiniMetroGame(Game, metaclass=Singleton):
 
         self.api_class = MiniMetroAPI
         self.api_instance = None
+        self.context = MainMenu
 
     @property
     def screen_regions(self):
@@ -29,6 +31,7 @@ class SerpentMiniMetroGame(Game, metaclass=Singleton):
         }
 
         return regions
+    
 
     @property
     def ocr_presets(self):
