@@ -12,6 +12,7 @@ class SerpentMiniMetroGameAgent(GameAgent):
     def setup_play(self):
 
         self.ml_station_detector = self.game.api.ml_station_detector
+        self.ml_context_classifier = self.game.api.ml_context_classifier
 
         # Should these setup actions be moved to Game api?
         # CLICK "Play"
@@ -24,11 +25,15 @@ class SerpentMiniMetroGameAgent(GameAgent):
 
 
     def handle_play(self, game_frame):
-        results = self.ml_station_detector.run_inference(game_frame.frame_array)
+        
+        results = self.ml_station_detector.predict(game_frame.frame)
+
+        print(self.ml_context_classifier.predict(game_frame.frame)['category'])
 
         for i, game_frame in enumerate(self.game_frame_buffer.frames):
             self.visual_debugger.store_image_data(
-                self.ml_station_detector.draw_bounding_boxes(game_frame.frame, **results),
+                #self.ml_station_detector.draw_bounding_boxes(game_frame.frame, **results),
+                game_frame.frame,
                 game_frame.frame.shape,
                 str(i)
             )
