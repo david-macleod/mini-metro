@@ -71,8 +71,8 @@ def convert_boxes(row):
     class_id = row['class_id']
     x_center = (row['xmax'] + row['xmin']) * 0.5 / row['width']
     y_center = (row['ymax'] + row['ymin']) * 0.5 / row['height']
-    width = (row['xmax'] - row['xmin']) * 0.5 / row['width']
-    height = (row['ymax'] - row['ymin']) * 0.5 / row['width']
+    width = (row['xmax'] - row['xmin']) / row['width']
+    height = (row['ymax'] - row['ymin']) / row['width']
 
     return f'{class_id} {x_center} {y_center} {width} {height}\n'
 
