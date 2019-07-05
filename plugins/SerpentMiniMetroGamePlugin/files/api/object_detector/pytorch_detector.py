@@ -63,7 +63,7 @@ class PytorchObjectDetector:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
         model = Darknet(self.config_path, self.img_size)
-        model.load_state_dict(torch.load(self.model_path))
+        model.load_state_dict(torch.load(self.model_path, map_location=device))
 
         return model
 
@@ -85,7 +85,7 @@ class PytorchObjectDetector:
 
         for box, object_conf, score, category_id in zip(boxes, object_conf, scores, category_ids):
             
-            label = f'{score:.0%}'
+            label = f'{object_conf:.0%}'
             image_array = draw_bounding_box(image_array=image_array, label=label,
                                             **box, **draw_kwargs)
 
