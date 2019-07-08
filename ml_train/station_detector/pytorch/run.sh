@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PTYOLOV3_HOME=/home/ubuntu/PyTorch-YOLOv3
+PTYOLOV3_HOME=/mnt/c/Users/macle/Dropbox/mcode/PyTorch-YOLOv3
 MODEL_DIR=$1
 
 rm -rf "$MODEL_DIR"/logs
