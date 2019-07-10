@@ -27,6 +27,9 @@ Initial test
 # m3
 * initial yolo3-tiny test
 * using yolo pretrained weights instead of darknet pretrained weights as darknet not available for tiny
-# MAP ~0.85, inference time on 20 images ~11 seconds
-# Can try using larger image size
+* MAP ~0.85, inference time on 20 images ~11 seconds
+* Can try using larger image size
 
+# m3
+* same as m3 but with custom anchors and larger image size (416 -> 608)
+* improves MAP to ~0.9 but still not good enough, will likely need a deeper network, somewhere between m3 and m2.3.1
