@@ -8,7 +8,7 @@ rm -rf "$MODEL_DIR"/checkpoints
 mkdir "$MODEL_DIR"/logs
 mkdir "$MODEL_DIR"/checkpoints
 
-python -m ptyolov3.train --model_def "$MODEL_DIR"/yolov3-tiny-custom.cfg \
+python -m ptyolov3.train --model_def "$MODEL_DIR"/yolov3-custom.cfg \
                          --data_config "$MODEL_DIR"/custom.data \
                          --pretrained_weights "$PTYOLOV3_HOME"/weights/yolov3-tiny.weights \
                          --n_cpu 4 \
