@@ -56,7 +56,7 @@ python-xlib==0.23
 PyTweening==1.0.3
 pytz==2018.5
 PyWavelets==0.5.2
-PyYAML==4.2b1
+PyYAML==5.4
 pyzmq==17.1.0
 qtconsole==4.3.1
 redis==2.10.6
