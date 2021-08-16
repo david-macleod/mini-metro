@@ -2,7 +2,7 @@ aioredis==1.1.0
 async-timeout==3.0.0
 autobahn==20.12.3
 backcall==0.1.0
-bleach==3.1.4
+bleach==3.3.0
 cloudpickle==0.5.3
 cycler==0.10.0
 Cython==0.26.1
