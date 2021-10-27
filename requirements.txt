@@ -6,7 +6,7 @@ bleach==3.3.0
 cloudpickle==0.5.3
 cycler==0.10.0
 Cython==0.26.1
-dask==0.18.2
+dask==2021.10.0
 decorator==4.3.0
 editdistance==0.4
 entrypoints==0.2.3
